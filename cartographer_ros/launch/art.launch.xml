@@ -1,0 +1,16 @@
+<launch>
+  <node name="cartographer_node" pkg="cartographer_ros"
+      exec="cartographer_node" args="
+          -configuration_directory $(find-pkg-share cartographer_ros)/configuration_files
+          -configuration_basename art.lua"
+      output="screen">
+    <param name="use_sim_time" value="true" />
+    <remap from="points2_1" to="/luminar_front_points" />
+    <remap from="points2_2" to="/luminar_right_points" />
+    <remap from="points2_3" to="/luminar_left_points" />
+    <remap from="imu" to="/gps_bot/imu" />
+  </node>
+
+  <node name="occupancy_grid_node" pkg="cartographer_ros"
+      exec="occupancy_grid_node" args="-resolution 0.05" />
+</launch>
